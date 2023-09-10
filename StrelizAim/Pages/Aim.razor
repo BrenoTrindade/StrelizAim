@@ -1,0 +1,35 @@
+﻿@page "/"
+@using System.Reflection.Metadata;
+
+<PageTitle>Streliz Clicks</PageTitle>
+<div class="principal">
+    <h3>Teste de bolinha</h3>
+    <div class="quadrado">
+        <div class="circulo" @onmousedown="() => CircleMouseDown(0)" style="left: @(lefts[0])px; top: @(tops[0])px;"></div>
+        <div class="circulo" @onmousedown="() => CircleMouseDown(1)" style="left: @(lefts[1])px; top: @(tops[1])px;"></div>
+        <div class="circulo" @onmousedown="() => CircleMouseDown(2)" style="left: @(lefts[2])px; top: @(tops[2])px;"></div>
+    </div>
+</div>
+
+@code {
+    private Random random = new Random();
+    private int[] lefts = new int[3];
+    private int[] tops = new int[3];
+
+    protected override void OnInitialized()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            lefts[i] = random.Next(0, 1600);
+            tops[i] = random.Next(0, 650);
+        }
+    }
+
+    protected void CircleMouseDown(int index)
+    {
+        lefts[index] = random.Next(0, 1600);
+        tops[index] = random.Next(0, 650);
+
+        StateHasChanged();
+    }
+}
