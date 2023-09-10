@@ -4,8 +4,13 @@
 <PageTitle>Streliz Clicks</PageTitle>
 <div class="principal">
     <h3>Teste de bolinha</h3>
-    <h5>@clickCounterIn / @clickCounterOut</h5>
-    <p>@(accuracy)%</p>
+    <div class="dados">
+        <h5>@clickCounterIn / @clickCounterOut</h5>
+        <h5>@(accuracy)%</h5>
+        <p>Tempo restante: @remainingSeconds segundos</p>
+        <button @onclick="TimerStart">Iniciar</button>
+        <button @onclick="TimerReset">Resetar</button>
+    </div>
     <div class="quadrado" @onmousedown=PanelMouseDown>
         <div class="circulo" @onmousedown="() => CircleMouseDown(0)" style="left: @(lefts[0])px; top: @(tops[0])px;"></div>
         <div class="circulo" @onmousedown="() => CircleMouseDown(1)" style="left: @(lefts[1])px; top: @(tops[1])px;"></div>
@@ -18,10 +23,14 @@
     private int[] lefts = new int[3];
     private int[] tops = new int[3];
 
-    int clickCounterIn = 0;
-    int clickCounterOut = 0;
+    private int clickCounterIn = 0;
+    private int clickCounterOut = 0;
 
-    string accuracy;
+    private string accuracy = string.Empty;
+
+    private System.Timers.Timer timer;
+    private double remainingSeconds;
+
     protected override void OnInitialized()
     {
         for (int i = 0; i < 3; i++)
@@ -46,5 +55,37 @@
         accuracy = (((double)clickCounterIn / clickCounterOut) * 100).ToString("N2");
 
         StateHasChanged();
+    }
+
+    protected void TimerStart()
+    {
+        remainingSeconds = 60;
+        timer = new System.Timers.Timer(1000);
+        timer.Elapsed += TimerElapsed;
+        timer.Enabled = true; 
+    }
+
+    private void TimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
+    {
+        if (remainingSeconds > 0)
+        {
+            remainingSeconds--;
+            InvokeAsync(() => StateHasChanged()); // Atualiza a interface do usuário na thread do Blazor
+        }
+        else
+        {
+            timer.Stop();
+            InvokeAsync(() => StateHasChanged()); // Atualiza a interface do usuário na thread do Blazor
+        }
+    }
+
+    protected void TimerReset()
+    {
+        timer?.Stop();
+        remainingSeconds = 0;
+        clickCounterIn = 0;
+        clickCounterOut = 0;
+        accuracy = "0";
+
     }
 }

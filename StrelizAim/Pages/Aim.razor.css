@@ -1,17 +1,17 @@
 ﻿body {
 }
+
 .principal {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    height: 100vh;
 }
 
 .quadrado {
     width: 98%;
-    height: 92%;
+    height: 90%;
     border: 2px solid black;
 }
 
@@ -22,3 +22,21 @@
     width: 50px;
     height: 50px;
 }
+
+.dados {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 3%;
+}
+
+    .dados h5{
+        margin: 10px;
+    }
+    .dados button {
+        margin: 10px;
+    }
+    .dados p {
+        margin: 10px;
+    }
