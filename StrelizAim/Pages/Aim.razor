@@ -70,12 +70,12 @@
         if (remainingSeconds > 0)
         {
             remainingSeconds--;
-            InvokeAsync(() => StateHasChanged()); // Atualiza a interface do usuário na thread do Blazor
+            InvokeAsync(() => StateHasChanged());
         }
         else
         {
             timer.Stop();
-            InvokeAsync(() => StateHasChanged()); // Atualiza a interface do usuário na thread do Blazor
+            InvokeAsync(() => StateHasChanged());
         }
     }
 
