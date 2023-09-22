@@ -15,6 +15,10 @@
     border: 2px solid black;
 }
 
+    .quadrado:hover {
+        cursor:crosshair;
+    }
+
 .circulo {
     position: relative;
     background: cyan;
@@ -23,9 +27,9 @@
     height: 50px;
 }
 
-.circulo:hover{
-    background:black;
-}
+    .circulo:hover {
+        background: black;
+    }
 
 .dados {
     display: flex;
@@ -35,12 +39,14 @@
     height: 3%;
 }
 
-    .dados h5{
+    .dados h5 {
         margin: 10px;
     }
+
     .dados button {
         margin: 10px;
     }
+
     .dados p {
         margin: 10px;
     }
